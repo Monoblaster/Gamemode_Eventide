@@ -629,6 +629,8 @@ function EventidePlayer::Damage(%this,%obj,%sourceObject,%position,%damage,%dama
 			{
 				%sourceDatablock.onIncapacitateVictim(%killerSourceObject, %obj, true);
 			}
+
+			$Eventide::BillboardMounts.clearAVBillboards(%obj,%obj.getID() @ "Downed");
 		}
     }
 
@@ -869,7 +871,6 @@ function EventidePlayerDowned::onDisabled(%this,%obj)
 //Called whenever a survivor dies or escapes. Fires an event if the survivor is the last one standing.
 function EventidePlayerDowned::onRemove(%this, %obj)
 {
-	$Eventide::BillboardMounts.clearAVBillboards(%obj,%obj.getID() @ "Downed");
 	%minigame = getMinigameFromObject(%obj);
 	if(isObject(%minigame) && isObject(%obj.client) && %obj.client.getRemainingTeamMembers() == 1)
 	{
