@@ -78,7 +78,7 @@ package Eventide_Player
 		%obj.spawnExplosion(pushBroomProjectile,%forcescale SPC %forcescale SPC %forcescale);
 
 		// Play a sound if the player is falling
-		if (%obj.getState() !$= "Dead" && getWord(%vec,2) > %obj.getdataBlock().minImpactSpeed)
+		if (%obj.getState() !$= "Dead" && getWord(%vec,2) > %obj.getdataBlock().minImpactSpeed * 2)
 		{
 			serverPlay3D("impact_fall_sound",%obj.getPosition());		
 		}        
