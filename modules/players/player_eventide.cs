@@ -1,3 +1,7 @@
+//
+// Datablocks.
+//
+
 datablock TSShapeConstructor(EventideplayerDts) 
 {
 	baseShape = "./models/eventideplayer.dts";
@@ -53,6 +57,129 @@ datablock PlayerData(EventidePlayerDowned : EventidePlayer)
 	uiName = "";
 };
 
+//
+// Miscellaneous functions.
+//
+
+// function cloneScriptGroup(%targetObject)
+// {
+//     %targetObjectName = %targetObject.getName();
+//     %targetObject.setName("targetScriptObject");
+
+//     %cloneObject = new ScriptGroup(cloneScriptObject : targetScriptObject);
+
+//     %targetObject.setName(%targetObjectName);
+//     %cloneObject.setName("");
+
+//     return %cloneObject;
+// }
+
+// //
+// // Player classes.
+// //
+
+// // Templates, containers for pre-made groups of classes.
+// ///
+
+// function EventideClassGroupTemplates::onAdd(%this)
+// {
+// 	index["Classic"] = new ScriptGroup()
+// 	{
+// 		class = "EventideClassGroup";
+// 		template = "Classic";
+
+// 		new ScriptObject()
+// 		{
+// 			class = "EventidePlayerClass";
+// 			title = "Mender";
+// 			canStack = false;
+// 			spawnMessage = "You acquired a soda and can run slightly faster!";
+// 			items = new SimSet()
+// 			{
+// 				class = "EventideClassItem";
+
+// 				//Can't store datablocks directly in a SimSet. How inconvenient.
+// 				new ScriptObject()
+// 				{
+// 					itemData = (getRandom(0, 1) ? GauzeItem.getID() : ZombieMedpackItem.getID());
+// 				};
+// 			};
+// 		};
+// 	};
+// }
+
+// //Using an internal array to fetch templates is faster than iteration via a for or while loop.
+// function EventideClassGroupTemplates::addTemplate(%this, %classGroup)
+// {
+// 	%this.index[%classGroup.name] = %classGroup;
+// }
+
+// function EventideClassGroupTemplates::getTemplate(%this, %classGroupName)
+// {
+// 	return %this.index[%classGroupName];
+// }
+
+// $Eventide_ClassGroupTemplates = new EventideClassGroupTemplate(Eventide_ClassGroupTemplates);
+
+// // Container for classes.
+// ///
+
+// function EventideClassGroup::onAdd(%this)
+// {
+// 	//Nothing but a template was given, auto-fill the data from an existing template if possible.
+// 	if(%this.template && %this.getCount() == 0)
+// 	{
+// 		%existingTemplate = $Eventide_ClassGroupTemplates.getTemplate(%this.template);
+// 		if(%existingTemplate)
+// 		{
+// 			%this = cloneScriptGroup(%existingTemplate);
+// 		}
+// 	}
+// }
+
+// // Containers for class information.
+// ///
+
+// function EventidePlayerClass::onAdd(%this)
+// {
+// 	if(!%this.items)
+// 	{
+// 		%this.items = new ScriptGroup();
+// 	}
+// 	else
+// 	{
+// 		//Cycle through the item set to make sure they're all valid. Delete any items that are invalid.
+// 		for(%i = 0; %i < %this.items.getCount(); %i++)
+// 		{
+// 			%itemContainer = %this.getObject(%i);
+// 			if(!%itemContainer.itemData || %itemContainer.itemData.getClassName() !$= "ItemData")
+// 			{
+// 				%itemContainer.delete();
+// 			}
+// 		}
+// 	}
+	
+// 	if(%this.canStack $= "")
+// 	{
+// 		%this.canStack = false;
+// 	}
+	
+// 	if(!%this.title)
+// 	{
+// 		%this.title = "Specialist";
+// 	}
+// }
+
+// $Eventide_PlayerClasses = new ScriptGroup(Eventide_PlayerClasses)
+// {
+// 	class = "EventideClassGroup";
+// 	template = "default";
+// };
+
+//
+// Everything else.
+//
+
 function EventidePlayer::pulsingScreen(%this,%obj)
 {
 	// If any of these are met, do not continue
@@ -103,6 +230,7 @@ function EventidePlayer::assignClass(%this,%obj,%class)
          				 messageClient(%obj.client,'MsgItemPickup','',1,StunGun.getID());
 						 %obj.client.centerprint(%formatString @ "Class: Tinkerer <br>" @ %firstString SPC "monkey wrench, stungun, use the wrench to repair generators faster!",4);
 	}
+	
 }
 
 function EventidePlayer::onNewDatablock(%this,%obj)
