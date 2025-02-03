@@ -13,13 +13,13 @@ datablock fxLightData(downedAVBillboard : DefaultAVBillboard)
 // returns a new MountGroup object with starting datablocks or false if failed
 function MountGroup_Create(%db,%num,%slot)
 {
-	if(%slot >= 0)
+	if(%slot < 0)
 	{
 		// Slot has to be greater than 0
 		return false;
 	}
 
-	if(%num > 0)
+	if(%num <= 0)
 	{
 		// The required number of mounts is less than 1. Doesn't make any sense to continue.
 		return false;
