@@ -25,7 +25,7 @@ function MountGroup_Create(%db,%num,%slot)
 		return false;
 	}
 
-	if(!isFunction(%db.getClassName(),"make"))
+	if(!isFunction(%db.ClassName,"make"))
 	{
 		// The mount datablock doesn't have a make function
 		return false;
