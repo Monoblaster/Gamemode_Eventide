@@ -97,12 +97,14 @@ function MountGroup::AVBillboard(%o,%player,%light,%tag)
 	%mount = %player.getMountedObject(%o.slot);
 	for(%i = 0; %i < %count; %i++)
 	{
-		if(%group.getObject(%i).player.getDataBlock().Hunter) //skip if hunter
+		%player = %group.getObject(%i).player;
+		if(isObject(%player) && %player.getDataBlock().Hunter) //skip if hunter
 		{
 			continue;
 		}
 		%avGroup = %group.getObject(%i).AVBillboardGroup;
 		// Appending the object id to the tag so future clears only effect their own group
+		
 		%bb = BillboardMount_AddAVBillboard(%mount, %avGroup, %light, %o @ "_" @ %tag);
 	}
 }

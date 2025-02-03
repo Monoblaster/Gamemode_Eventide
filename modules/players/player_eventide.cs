@@ -725,7 +725,7 @@ function EventidePlayer::Damage(%this,%obj,%sourceObject,%position,%damage,%dama
 		if(!%obj.wasDowned)
 		{
 			// Work in progress billboard for downed players, still not working :(
-			$Eventide::BillboardMounts.AVBillboard(%obj,"downedAVBillboard",%obj.getID() @ "Downed");
+			$Eventide::BillboardMounts.AVBillboard(%obj,"downedAVBillboard","Downed");
 
 			// Reset the player's health, and set the player to be downed
 			%obj.wasDowned = true; // They have been downed once, they wont be able to go down again until they are healed
@@ -758,7 +758,7 @@ function EventidePlayer::Damage(%this,%obj,%sourceObject,%position,%damage,%dama
 				%sourceDatablock.onIncapacitateVictim(%killerSourceObject, %obj, true);
 			}
 
-			$Eventide::BillboardMounts.clearAVBillboards(%obj,%obj.getID() @ "Downed");
+			$Eventide::BillboardMounts.clearAVBillboards(%obj,"Downed");
 		}
     }
 
