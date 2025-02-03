@@ -411,6 +411,10 @@ function Player::faceConfigUnblink(%player)
         %blinkDelay = %player.faceConfig.getFaceAttribute("Blink", "openLength"); 
     }
 
+    if(isEventPending(%player.faceConfigBlinkSchedule))
+    {
+        cancel(%player.faceConfigBlinkSchedule);
+    }
     %player.faceConfigBlinkSchedule = %player.schedule(%blinkDelay, "faceConfigBlink");
     return %player.faceConfigBlinkSchedule;
 }
@@ -437,6 +441,10 @@ function Player::faceConfigBlink(%player)
         %player.faceConfig.setFaceAttribute("Blink", "closedLength", getRandom(100, 400)); //The average blink lasts between 0.1 to 0.4 seconds.
     }
 
+    if(isEventPending(%player.faceConfigBlinkSchedule))
+    {
+        cancel(%player.faceConfigBlinkSchedule);
+    }
     %player.faceConfigBlinkSchedule = %player.schedule(%player.faceConfig.getFaceAttribute("Blink", "closedLength"), "faceConfigUnblink");
     return %player.faceConfigBlinkSchedule;
 }
@@ -444,7 +452,7 @@ function Player::faceConfigBlink(%player)
 function Player::beginFaceConfigBlinkSchedule(%player)
 {
     //Doesn't work if you try to set the face immediately after spawn, so we just have to settle for this small delay.
-    %player.schedule(33, "faceConfigUnblink");
+    %player.schedule(1, "faceConfigUnblink");
 }
 
 function Player::faceConfigShowFace(%player, %name)
